@@ -1,8 +1,23 @@
 import { Button } from "@/components/ui/button";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Play, Users, Award, BookOpen } from "lucide-react";
 import heroImage from "@/assets/hero-disaster-education.jpg";
+import { useState, useRef } from "react";
 
 const HeroSection = () => {
+  const [isDemoOpen, setIsDemoOpen] = useState(false);
+  const [currentDemoVideo, setCurrentDemoVideo] = useState("/demo-video-1.mp4");
+  
+  const scrollToVirtualDrills = () => {
+    const drillsSection = document.getElementById('drills');
+    if (drillsSection) {
+      drillsSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  const handleWatchDemo = () => {
+    setIsDemoOpen(true);
+  };
   return (
     <section className="pt-20 pb-16 bg-gradient-to-br from-background via-muted/30 to-background">
       <div className="container mx-auto px-4">
@@ -26,17 +41,53 @@ const HeroSection = () => {
               <Button 
                 size="lg" 
                 className="bg-gradient-to-r from-primary to-secondary hover:shadow-lg transform hover:scale-105 transition-all duration-300"
+                onClick={scrollToVirtualDrills}
               >
                 <Play className="mr-2 h-5 w-5" />
                 Start Learning
               </Button>
-              <Button 
-                variant="outline" 
-                size="lg"
-                className="border-primary text-primary hover:bg-primary hover:text-primary-foreground"
-              >
-                Watch Demo
-              </Button>
+              <Dialog open={isDemoOpen} onOpenChange={setIsDemoOpen}>
+                <DialogTrigger asChild>
+                  <Button 
+                    variant="outline" 
+                    size="lg"
+                    className="border-primary text-primary hover:bg-primary hover:text-primary-foreground"
+                    onClick={handleWatchDemo}
+                  >
+                    Watch Demo
+                  </Button>
+                </DialogTrigger>
+                <DialogContent className="max-w-4xl max-h-[80vh]">
+                  <DialogHeader>
+                    <DialogTitle>SafeSchool India Demo</DialogTitle>
+                  </DialogHeader>
+                  <div className="aspect-video mb-4">
+                    <video
+                      src={currentDemoVideo}
+                      controls
+                      className="w-full h-full rounded-lg"
+                    >
+                      Your browser does not support the video tag.
+                    </video>
+                  </div>
+                  <div className="flex gap-2">
+                    <Button 
+                      size="sm" 
+                      variant={currentDemoVideo === "/demo-video-1.mp4" ? "default" : "outline"}
+                      onClick={() => setCurrentDemoVideo("/demo-video-1.mp4")}
+                    >
+                      Overview Demo
+                    </Button>
+                    <Button 
+                      size="sm" 
+                      variant={currentDemoVideo === "/demo-video-2.mp4" ? "default" : "outline"}
+                      onClick={() => setCurrentDemoVideo("/demo-video-2.mp4")}
+                    >
+                      Features Demo
+                    </Button>
+                  </div>
+                </DialogContent>
+              </Dialog>
             </div>
 
             <div className="grid grid-cols-3 gap-8 pt-8 border-t border-border">

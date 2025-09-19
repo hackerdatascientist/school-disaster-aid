@@ -2,40 +2,43 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Clock, Users, Star, ArrowRight } from "lucide-react";
-import earthquakeIcon from "@/assets/earthquake-drill-icon.jpg";
-import fireIcon from "@/assets/fire-safety-icon.jpg";
-import floodIcon from "@/assets/flood-safety-icon.jpg";
+import earthquakeSafetyImg from "@/assets/earthquake-safety-kids.jpg";
+import fireEvacuationImg from "@/assets/fire-evacuation-students.jpg";
+import floodPreparednessImg from "@/assets/flood-preparedness-school.jpg";
 
 const modules = [
   {
-    title: "Earthquake Safety",
-    description: "Comprehensive training on earthquake preparedness, drop-cover-hold techniques, and evacuation procedures.",
-    image: earthquakeIcon,
-    duration: "45 min",
-    students: "12K+",
+    title: "Earthquake Safety for Schools",
+    description: "Learn Drop, Cover & Hold techniques through fun activities and interactive games designed for all age groups",
+    image: earthquakeSafetyImg,
+    duration: "15 min",
+    students: "2.5K",
     rating: 4.9,
     level: "Beginner",
-    color: "primary"
+    color: "primary",
+    details: "Master earthquake response with age-appropriate exercises, safety songs, and classroom simulations"
   },
   {
-    title: "Fire Safety & Evacuation",
-    description: "Learn fire prevention, proper use of extinguishers, and emergency evacuation routes.",
-    image: fireIcon,
-    duration: "35 min",
-    students: "8K+",
+    title: "Fire Evacuation & Safety",
+    description: "Interactive fire safety training with evacuation routes, smoke crawling, and emergency exit procedures",
+    image: fireEvacuationImg,
+    duration: "20 min",
+    students: "3.2K",
     rating: 4.8,
     level: "Intermediate",
-    color: "destructive"
+    color: "destructive",
+    details: "Comprehensive fire safety including alarm recognition, evacuation planning, and meeting point procedures"
   },
   {
-    title: "Flood Preparedness",
-    description: "Understanding flood risks, safety measures, and rescue procedures during water emergencies.",
-    image: floodIcon,
-    duration: "40 min",
-    students: "6K+",
+    title: "Flood Preparedness & Response",
+    description: "Essential flood safety knowledge including emergency kits, water safety, and evacuation procedures",
+    image: floodPreparednessImg,
+    duration: "18 min",
+    students: "1.8K",
     rating: 4.7,
-    level: "Beginner",
-    color: "secondary"
+    level: "Advanced",
+    color: "secondary",
+    details: "Complete flood response training covering early warning signs, safety measures, and post-flood recovery"
   }
 ];
 
@@ -79,9 +82,12 @@ const EducationModules = () => {
                 <CardTitle className="text-xl group-hover:text-primary transition-colors">
                   {module.title}
                 </CardTitle>
-                <CardDescription className="text-muted-foreground leading-relaxed">
+                <CardDescription className="text-muted-foreground leading-relaxed mb-3">
                   {module.description}
                 </CardDescription>
+                <div className="text-xs text-muted-foreground p-2 bg-muted/30 rounded">
+                  {module.details}
+                </div>
               </CardHeader>
               <CardContent className="pt-0">
                 <div className="flex items-center justify-between text-sm text-muted-foreground mb-6">

@@ -13,7 +13,8 @@ const drills = [
     duration: "5-10 min",
     difficulty: "Beginner",
     points: 100,
-    icon: Target
+    icon: Target,
+    videoSrc: "/earthquake-drill-video.mp4"
   },
   {
     title: "Fire Evacuation Challenge",
@@ -22,7 +23,8 @@ const drills = [
     duration: "8-15 min", 
     difficulty: "Intermediate",
     points: 150,
-    icon: Trophy
+    icon: Trophy,
+    videoSrc: "/fire-evacuation-video.mp4"
   },
   {
     title: "Flood Response Training",
@@ -31,31 +33,27 @@ const drills = [
     duration: "6-12 min",
     difficulty: "Advanced",
     points: 200,
-    icon: Gamepad2
+    icon: Gamepad2,
+    videoSrc: "/flood-response-video.mp4"
   }
 ];
 
 const VirtualDrills = () => {
   const [completedDrills, setCompletedDrills] = useState<number[]>([]);
   const [isVideoOpen, setIsVideoOpen] = useState(false);
+  const [currentDrill, setCurrentDrill] = useState<number>(0);
   const videoRef = useRef<HTMLVideoElement>(null);
 
   const handleVideoEnd = () => {
-    if (!completedDrills.includes(0)) {
-      setCompletedDrills([...completedDrills, 0]);
+    if (!completedDrills.includes(currentDrill)) {
+      setCompletedDrills([...completedDrills, currentDrill]);
     }
     setIsVideoOpen(false);
   };
 
   const handleDrillStart = (index: number) => {
-    if (index === 0) {
-      setIsVideoOpen(true);
-    } else {
-      // For other drills, mark as completed immediately (placeholder)
-      if (!completedDrills.includes(index)) {
-        setCompletedDrills([...completedDrills, index]);
-      }
-    }
+    setCurrentDrill(index);
+    setIsVideoOpen(true);
   };
 
   const renderButton = (index: number) => {
@@ -70,40 +68,31 @@ const VirtualDrills = () => {
       );
     }
     
-    if (index === 0) {
-      return (
-        <Dialog open={isVideoOpen} onOpenChange={setIsVideoOpen}>
-          <DialogTrigger asChild>
-            <Button size="sm" className="bg-primary hover:bg-primary/90" onClick={() => handleDrillStart(index)}>
-              <Play className="mr-1 h-3 w-3" />
-              Start
-            </Button>
-          </DialogTrigger>
-          <DialogContent className="max-w-4xl max-h-[80vh]">
-            <DialogHeader>
-              <DialogTitle>Earthquake Drill Simulator</DialogTitle>
-            </DialogHeader>
-            <div className="aspect-video">
-              <video
-                ref={videoRef}
-                src="/earthquake-drill-video.mp4"
-                controls
-                className="w-full h-full rounded-lg"
-                onEnded={handleVideoEnd}
-              >
-                Your browser does not support the video tag.
-              </video>
-            </div>
-          </DialogContent>
-        </Dialog>
-      );
-    }
-    
     return (
-      <Button size="sm" className="bg-primary hover:bg-primary/90" onClick={() => handleDrillStart(index)}>
-        <Play className="mr-1 h-3 w-3" />
-        Start
-      </Button>
+      <Dialog open={isVideoOpen} onOpenChange={setIsVideoOpen}>
+        <DialogTrigger asChild>
+          <Button size="sm" className="bg-primary hover:bg-primary/90" onClick={() => handleDrillStart(index)}>
+            <Play className="mr-1 h-3 w-3" />
+            Start
+          </Button>
+        </DialogTrigger>
+        <DialogContent className="max-w-4xl max-h-[80vh]">
+          <DialogHeader>
+            <DialogTitle>{drills[currentDrill]?.title}</DialogTitle>
+          </DialogHeader>
+          <div className="aspect-video">
+            <video
+              ref={videoRef}
+              src={drills[currentDrill]?.videoSrc}
+              controls
+              className="w-full h-full rounded-lg"
+              onEnded={handleVideoEnd}
+            >
+              Your browser does not support the video tag.
+            </video>
+          </div>
+        </DialogContent>
+      </Dialog>
     );
   };
   return (

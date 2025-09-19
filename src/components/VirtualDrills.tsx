@@ -1,7 +1,9 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Play, Timer, Trophy, Target, Gamepad2 } from "lucide-react";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Play, Timer, Trophy, Target, Gamepad2, CheckCircle } from "lucide-react";
+import { useState, useRef } from "react";
 
 const drills = [
   {
@@ -34,6 +36,76 @@ const drills = [
 ];
 
 const VirtualDrills = () => {
+  const [completedDrills, setCompletedDrills] = useState<number[]>([]);
+  const [isVideoOpen, setIsVideoOpen] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  const handleVideoEnd = () => {
+    if (!completedDrills.includes(0)) {
+      setCompletedDrills([...completedDrills, 0]);
+    }
+    setIsVideoOpen(false);
+  };
+
+  const handleDrillStart = (index: number) => {
+    if (index === 0) {
+      setIsVideoOpen(true);
+    } else {
+      // For other drills, mark as completed immediately (placeholder)
+      if (!completedDrills.includes(index)) {
+        setCompletedDrills([...completedDrills, index]);
+      }
+    }
+  };
+
+  const renderButton = (index: number) => {
+    const isCompleted = completedDrills.includes(index);
+    
+    if (isCompleted) {
+      return (
+        <Button size="sm" variant="outline" disabled>
+          <CheckCircle className="mr-1 h-3 w-3 text-green-600" />
+          Completed
+        </Button>
+      );
+    }
+    
+    if (index === 0) {
+      return (
+        <Dialog open={isVideoOpen} onOpenChange={setIsVideoOpen}>
+          <DialogTrigger asChild>
+            <Button size="sm" className="bg-primary hover:bg-primary/90" onClick={() => handleDrillStart(index)}>
+              <Play className="mr-1 h-3 w-3" />
+              Start
+            </Button>
+          </DialogTrigger>
+          <DialogContent className="max-w-4xl max-h-[80vh]">
+            <DialogHeader>
+              <DialogTitle>Earthquake Drill Simulator</DialogTitle>
+            </DialogHeader>
+            <div className="aspect-video">
+              <video
+                ref={videoRef}
+                src="/earthquake-drill-video.mp4"
+                controls
+                className="w-full h-full rounded-lg"
+                onEnded={handleVideoEnd}
+              >
+                Your browser does not support the video tag.
+              </video>
+            </div>
+          </DialogContent>
+        </Dialog>
+      );
+    }
+    
+    return (
+      <Button size="sm" className="bg-primary hover:bg-primary/90" onClick={() => handleDrillStart(index)}>
+        <Play className="mr-1 h-3 w-3" />
+        Start
+      </Button>
+    );
+  };
   return (
     <section id="drills" className="py-20 bg-background">
       <div className="container mx-auto px-4">
@@ -86,10 +158,7 @@ const VirtualDrills = () => {
                           {drill.difficulty}
                         </Badge>
                       </div>
-                      <Button size="sm" className="bg-primary hover:bg-primary/90">
-                        <Play className="mr-1 h-3 w-3" />
-                        Start
-                      </Button>
+                      {renderButton(index)}
                     </div>
                   </CardContent>
                 </Card>

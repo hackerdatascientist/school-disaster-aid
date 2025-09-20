@@ -1,7 +1,9 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Clock, Users, Star, ArrowRight } from "lucide-react";
+import { Clock, Users, Star, Gamepad2 } from "lucide-react";
+import DisasterGame from "@/components/DisasterGame";
+import { useState } from "react";
 import earthquakeSafetyImg from "@/assets/earthquake-safety-kids.jpg";
 import fireEvacuationImg from "@/assets/fire-evacuation-students.jpg";
 import floodPreparednessImg from "@/assets/flood-preparedness-school.jpg";
@@ -43,6 +45,14 @@ const modules = [
 ];
 
 const EducationModules = () => {
+  const [isGameOpen, setIsGameOpen] = useState(false);
+  const [selectedModule, setSelectedModule] = useState(0);
+
+  const handleGameStart = (moduleIndex: number) => {
+    setSelectedModule(moduleIndex);
+    setIsGameOpen(true);
+  };
+
   return (
     <section id="modules" className="py-20 bg-muted/30">
       <div className="container mx-auto px-4">
@@ -100,9 +110,12 @@ const EducationModules = () => {
                     <span>{module.students}</span>
                   </div>
                 </div>
-                <Button className="w-full group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
-                  Start Module
-                  <ArrowRight className="ml-2 h-4 w-4" />
+                <Button 
+                  className="w-full group-hover:bg-primary group-hover:text-primary-foreground transition-colors"
+                  onClick={() => handleGameStart(index)}
+                >
+                  Game
+                  <Gamepad2 className="ml-2 h-4 w-4" />
                 </Button>
               </CardContent>
             </Card>
@@ -115,6 +128,12 @@ const EducationModules = () => {
           </Button>
         </div>
       </div>
+      
+      <DisasterGame 
+        isOpen={isGameOpen} 
+        onClose={() => setIsGameOpen(false)}
+        initialModule={selectedModule}
+      />
     </section>
   );
 };

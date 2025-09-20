@@ -209,9 +209,23 @@ const gameData: Level[] = [
   }
 ];
 
-const DisasterGame = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) => {
+interface DisasterGameProps {
+  isOpen: boolean;
+  onClose: () => void;
+  initialModule?: number;
+}
+
+const DisasterGame = ({ isOpen, onClose, initialModule = 0 }: DisasterGameProps) => {
   const [gameState, setGameState] = useState<'menu' | 'playing' | 'results'>('menu');
-  const [currentLevel, setCurrentLevel] = useState<number>(1);
+  const [currentLevel, setCurrentLevel] = useState<number>(initialModule + 1 || 1);
+
+  // Auto-start game if opened from a specific module
+  useEffect(() => {
+    if (isOpen && initialModule !== undefined) {
+      setCurrentLevel(initialModule + 1);
+      setGameState('playing');
+    }
+  }, [isOpen, initialModule]);
   const [currentQuestion, setCurrentQuestion] = useState<number>(0);
   const [score, setScore] = useState<number>(0);
   const [selectedAnswers, setSelectedAnswers] = useState<string[]>([]);

@@ -1,12 +1,14 @@
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-import { Play, Users, Award, BookOpen } from "lucide-react";
+import { Play, Users, Award, BookOpen, Gamepad2 } from "lucide-react";
 import heroImage from "@/assets/hero-disaster-education.jpg";
+import DisasterGame from "@/components/DisasterGame";
 import { useState, useRef } from "react";
 
 const HeroSection = () => {
   const [isDemoOpen, setIsDemoOpen] = useState(false);
   const [currentDemoVideo, setCurrentDemoVideo] = useState("/demo-video-1.mp4");
+  const [isGameOpen, setIsGameOpen] = useState(false);
   
   const scrollToVirtualDrills = () => {
     const drillsSection = document.getElementById('drills');
@@ -41,10 +43,10 @@ const HeroSection = () => {
               <Button 
                 size="lg" 
                 className="bg-gradient-to-r from-primary to-secondary hover:shadow-lg transform hover:scale-105 transition-all duration-300"
-                onClick={scrollToVirtualDrills}
+                onClick={() => setIsGameOpen(true)}
               >
-                <Play className="mr-2 h-5 w-5" />
-                Start Learning
+                <Gamepad2 className="mr-2 h-5 w-5" />
+                Play Game
               </Button>
               <Dialog open={isDemoOpen} onOpenChange={setIsDemoOpen}>
                 <DialogTrigger asChild>
@@ -89,6 +91,8 @@ const HeroSection = () => {
                 </DialogContent>
               </Dialog>
             </div>
+            
+            <DisasterGame isOpen={isGameOpen} onClose={() => setIsGameOpen(false)} />
 
             <div className="grid grid-cols-3 gap-8 pt-8 border-t border-border">
               <div className="text-center">

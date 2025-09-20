@@ -12,7 +12,7 @@ const Header = () => {
           <div className="flex items-center space-x-2">
             <Shield className="h-8 w-8 text-primary" />
             <span className="text-2xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
-              SafeSchool India
+              ResQLearn
             </span>
           </div>
           
@@ -31,7 +31,7 @@ const Header = () => {
               Dashboard
             </a>
             <Button variant="default" className="bg-gradient-to-r from-primary to-secondary">
-              Get Started
+              Play Game
             </Button>
           </nav>
 
@@ -61,7 +61,7 @@ const Header = () => {
                 Dashboard
               </a>
               <Button variant="default" className="bg-gradient-to-r from-primary to-secondary w-full">
-                Get Started
+                Play Game
               </Button>
             </div>
           </nav>

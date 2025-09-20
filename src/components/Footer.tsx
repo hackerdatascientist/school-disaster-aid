@@ -11,7 +11,7 @@ const Footer = () => {
             <div className="flex items-center space-x-2">
               <Shield className="h-8 w-8 text-primary" />
               <span className="text-2xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
-                SafeSchool India
+                ResQLearn
               </span>
             </div>
             <p className="text-muted-foreground leading-relaxed">
@@ -81,7 +81,7 @@ const Footer = () => {
         <div className="border-t border-border mt-12 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <p className="text-muted-foreground text-sm">
-              © 2024 SafeSchool India. All rights reserved. | In partnership with NDMA & Ministry of Education
+              © 2024 ResQLearn. All rights reserved. | In partnership with NDMA & Ministry of Education
             </p>
             <div className="flex space-x-6 text-sm text-muted-foreground mt-4 md:mt-0">
               <a href="#" className="hover:text-primary transition-colors">Privacy Policy</a>

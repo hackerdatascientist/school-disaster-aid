@@ -42,17 +42,41 @@ const VirtualDrills = () => {
   const [completedDrills, setCompletedDrills] = useState<number[]>([]);
   const [isVideoOpen, setIsVideoOpen] = useState(false);
   const [currentDrill, setCurrentDrill] = useState<number>(0);
+  const [isSequentialMode, setIsSequentialMode] = useState(false);
+  const [allModulesCompleted, setAllModulesCompleted] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
 
   const handleVideoEnd = () => {
     if (!completedDrills.includes(currentDrill)) {
       setCompletedDrills([...completedDrills, currentDrill]);
     }
-    setIsVideoOpen(false);
+    
+    if (isSequentialMode) {
+      // If in sequential mode, check if there are more drills
+      if (currentDrill < drills.length - 1) {
+        // Move to next drill
+        setCurrentDrill(currentDrill + 1);
+        // Keep video open for next drill
+      } else {
+        // All drills completed
+        setAllModulesCompleted(true);
+        setIsSequentialMode(false);
+        setIsVideoOpen(false);
+      }
+    } else {
+      setIsVideoOpen(false);
+    }
   };
 
   const handleDrillStart = (index: number) => {
     setCurrentDrill(index);
+    setIsSequentialMode(false);
+    setIsVideoOpen(true);
+  };
+
+  const handleSequentialStart = () => {
+    setCurrentDrill(0);
+    setIsSequentialMode(true);
     setIsVideoOpen(true);
   };
 
@@ -181,8 +205,13 @@ const VirtualDrills = () => {
                     <div className="text-sm text-muted-foreground">Avg Score</div>
                   </div>
                 </div>
-                <Button size="lg" className="w-full bg-gradient-to-r from-primary to-secondary">
-                  Try Virtual Drill
+                <Button 
+                  size="lg" 
+                  className="w-full bg-gradient-to-r from-primary to-secondary"
+                  onClick={handleSequentialStart}
+                  disabled={allModulesCompleted}
+                >
+                  {allModulesCompleted ? "Completed Virtual Drill" : "Try Virtual Drill"}
                 </Button>
               </div>
             </div>

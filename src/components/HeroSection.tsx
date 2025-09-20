@@ -61,7 +61,7 @@ const HeroSection = () => {
                 </DialogTrigger>
                 <DialogContent className="max-w-4xl max-h-[80vh]">
                   <DialogHeader>
-                    <DialogTitle>SafeSchool India Demo</DialogTitle>
+                    <DialogTitle>ResQLearn Demo</DialogTitle>
                   </DialogHeader>
                   <div className="aspect-video mb-4">
                     <video

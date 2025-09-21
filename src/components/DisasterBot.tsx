@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Bot, X, Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -12,8 +12,12 @@ interface Message {
   timestamp: Date;
 }
 
-const DisasterBot = () => {
-  const [isOpen, setIsOpen] = useState(false);
+interface DisasterBotProps {
+  isOpen: boolean;
+  onToggle: () => void;
+}
+
+const DisasterBot = ({ isOpen, onToggle }: DisasterBotProps) => {
   const [messages, setMessages] = useState<Message[]>([
     {
       id: "1",
@@ -106,20 +110,9 @@ const DisasterBot = () => {
 
   return (
     <>
-      {/* Floating Bot Button */}
-      <div className="fixed bottom-6 right-6 z-50">
-        <Button
-          onClick={() => setIsOpen(!isOpen)}
-          size="lg"
-          className="rounded-full h-16 w-16 bg-gradient-to-r from-primary to-secondary shadow-lg hover:shadow-xl transition-all duration-300 animate-pulse"
-        >
-          <Bot className="h-8 w-8 text-white" />
-        </Button>
-      </div>
-
       {/* Chat Window */}
       {isOpen && (
-        <div className="fixed bottom-24 right-6 z-50 w-80 h-96">
+        <div className="fixed top-20 right-6 z-50 w-80 h-96">
           <Card className="h-full flex flex-col shadow-2xl border-2 border-primary/20">
             {/* Header */}
             <div className="flex items-center justify-between p-4 bg-gradient-to-r from-primary to-secondary text-white rounded-t-lg">
@@ -130,7 +123,7 @@ const DisasterBot = () => {
               <Button
                 variant="ghost"
                 size="sm"
-                onClick={() => setIsOpen(false)}
+                onClick={onToggle}
                 className="text-white hover:bg-white/20 h-8 w-8 p-0"
               >
                 <X className="h-4 w-4" />

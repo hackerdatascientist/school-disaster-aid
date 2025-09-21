@@ -5,7 +5,6 @@ import VirtualDrills from "@/components/VirtualDrills";
 import EmergencyContacts from "@/components/EmergencyContacts";
 import AdminDashboard from "@/components/AdminDashboard";
 import Footer from "@/components/Footer";
-import DisasterBot from "@/components/DisasterBot";
 
 const Index = () => {
   return (
@@ -19,7 +18,6 @@ const Index = () => {
         <AdminDashboard />
       </main>
       <Footer />
-      <DisasterBot />
     </div>
   );
 };

@@ -152,15 +152,6 @@ const EmergencyContacts = () => {
               ))}
             </div>
 
-            <div className="mt-6 p-6 bg-gradient-to-r from-primary/5 to-secondary/5 rounded-lg border border-border">
-              <h4 className="font-semibold mb-2">Need to Add Your Region?</h4>
-              <p className="text-sm text-muted-foreground mb-4">
-                Contact us to add your local emergency coordinators and disaster management contacts.
-              </p>
-              <Button variant="outline" size="sm">
-                Submit Contact Information
-              </Button>
-            </div>
           </div>
         </div>
       </div>

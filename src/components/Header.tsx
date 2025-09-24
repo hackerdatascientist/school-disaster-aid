@@ -41,9 +41,6 @@ const Header = () => {
               >
                 <Bot className="h-5 w-5" />
               </Button>
-              <Button variant="default" className="bg-gradient-to-r from-primary to-secondary">
-                Play Game
-              </Button>
             </nav>
 
             {/* Mobile Menu Button */}
@@ -79,9 +76,6 @@ const Header = () => {
                   >
                     <Bot className="h-5 w-5 mr-2" />
                     ResQ Bot
-                  </Button>
-                  <Button variant="default" className="bg-gradient-to-r from-primary to-secondary w-full">
-                    Play Game
                   </Button>
                 </div>
               </nav>

@@ -191,11 +191,6 @@ const AdminDashboard = () => {
           </Card>
         </div>
 
-        <div className="text-center mt-12">
-          <Button size="lg" className="bg-gradient-to-r from-primary to-secondary">
-            Access Full Dashboard
-          </Button>
-        </div>
       </div>
     </section>
   );
